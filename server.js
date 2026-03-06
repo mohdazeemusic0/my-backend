@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import fetch from "node-fetch";
 
 dotenv.config();
 
@@ -15,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 /* =========================
-   ROOT ROUTE (HEALTH CHECK)
+   ROOT ROUTE
 ========================= */
 
 app.get("/", (req, res) => {
@@ -56,7 +55,7 @@ app.post("/ai", async (req, res) => {
           "X-Title": "SabKaregaAI"
         },
         body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct",
+          model: "google/gemini-pro",
           messages: [
             {
               role: "user",
@@ -82,9 +81,7 @@ app.post("/ai", async (req, res) => {
       data?.choices?.[0]?.message?.content ||
       "AI did not return a response.";
 
-    res.json({
-      reply: reply
-    });
+    res.json({ reply });
 
   } catch (error) {
 
